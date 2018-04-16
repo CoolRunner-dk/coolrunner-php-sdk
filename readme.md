@@ -31,20 +31,20 @@ $api = CoolRunnerSDK\API::load('<your@email.here>', '<your token here>');
 Servicepoint objects contain certain information on the servicepoint it describes
 
 __Properties__:
- - id : _int_  
+ - ```id``` : _int_  
  Internal ID of the servicepoint
- - name : _string_  
+ - ```name``` : _string_  
  Internal name of the servicepoint
- - distance : _int_  
+ - ```distance``` : _int_  
  Distance to the servicepoint
- - address : _string|Address_  
+ - ```address``` : _string|Address_  
  Address of the servicepoint
- - coordinates: _string|Coordinates_  
+ - ```coordinates``` : _string|Coordinates_  
  Coordinates of the servicepoint
- - opening_hours: _string|OpeningHours_  
+ - ```opening_hours``` : _string|OpeningHours_  
  Opening hours of the servicepoint
  
- <sub>_Distance is only available if the servicepoint has been pulled with an origin address_</sub>
+ <sub>_Distance is only available if the servicepoint has been pulled with a full origin address (country, zip, city and street)_</sub>
 
 __Methods__:  
  - _This class has no methods_
@@ -55,17 +55,17 @@ __Methods__:
 _Address of the servicepoint_
 
 __Properties__:
- - street : _string_  
+ - ```street``` : _string_  
  Street name
- - zip_code : _string_  
+ - ```zip_code``` : _string_  
  City zip code
- - city : _string_  
+ - ```city``` : _string_  
  City name
- - country_code : _string_  
+ - ```country_code``` : _string_  
  ISO 3166-1 Alpha-2 format
 
 __Methods__:
- - toString($format = ':street, :country-:zip :city')
+ - ```$addr->toString($format = ':street, :country-:zip :city')``` : _string_
     - Return Address in a specified format as a string<br>
     The default format if the object is cast as a string is ':street, :country-:zip :city' 
 
@@ -73,8 +73,8 @@ __Methods__:
 _Coordinates of the servicepoint_
 
 __Properties__:
- - longitude : _float_
- - latitude : _float_
+ - ```longitude``` : _float_
+ - ```latitude``` : _float_
  
 __Methods__:
  - _This class has no methods_
