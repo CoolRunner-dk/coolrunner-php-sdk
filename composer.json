@@ -1,0 +1,27 @@
+{
+  "name"        : "coolrunner/api-v3",
+  "description" : "CoolRunner API v3 SDK",
+  "keywords"    : [
+    "coolrunner",
+    "shipping"
+  ],
+  "homepage"    : "https://coolrunner.dk",
+  "license"     : "GNUv3.0",
+  "authors"     : [
+    {
+      "name"     : "Morten Harders",
+      "homepage" : "http://coolrunner.dk",
+      "role"     : "Developer",
+      "email"    : "mh@coolrunner.dk"
+    }
+  ],
+  "require"     : {
+    "php"      : ">=5.6",
+    "ext-curl" : "*"
+  },
+  "autoload"    : {
+    "psr-4" : {
+      "CoolRunnerSDK\\" : "src"
+    }
+  }
+}
