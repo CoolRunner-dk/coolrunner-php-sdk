@@ -31,10 +31,24 @@ class API {
 
     protected static $token;
 
-    const CARRIER_GLS      = 'GLS';
-    const CARRIER_DAO      = 'DAO';
+    /**
+     * Carrier GLS
+     */
+    const CARRIER_GLS = 'GLS';
+    /**
+     * Carrier DAO
+     */
+    const CARRIER_DAO = 'DAO';
+    /**
+     * Carrier PostNord
+     */
     const CARRIER_POSTNORD = 'postnord';
-    const DEBUG_MODE       = true;
+
+    /**
+     * Debug mode
+     * Alter JSON outputs to be beautified
+     */
+    const DEBUG_MODE = true;
 
     /**
      * API constructor.
@@ -166,7 +180,7 @@ class API {
      *
      * @param string $carrier      Carrier to poll (DAO, GLS, postnord)
      * @param string $country_code ISO 3166-1 Alpha-2 format. eg. DK
-     * @param string $zipcode      Zipcode. eg. 9000
+     * @param string $zip_code     Zipcode. eg. 9000
      * @param string $city         <i>[Optional]</i> City. eg. Aalborg
      * @param string $street       <i>[Optional]</i> Street. eg. Slotsgade 8
      *
@@ -174,10 +188,10 @@ class API {
      *
      * @see https://docs.coolrunner.dk/v3/#find CoolRunner API v3 Docs Servicepoints/Find
      */
-    public function findServicepoints($carrier, $country_code, $zipcode, $city = '', $street = '') {
+    public function findServicepoints($carrier, $country_code, $zip_code, $city = '', $street = '') {
         $url = self::$_base_url . "servicepoints/$carrier";
 
-        $data = ['country_code' => $country_code, 'zipcode' => $zipcode, 'city' => $city, 'street' => $street];
+        $data = ['country_code' => $country_code, 'zipcode' => $zip_code, 'city' => $city, 'street' => $street];
 
         $resp = $this->get($url, 'GET', $data);
 
@@ -253,24 +267,24 @@ class API {
     }
 
     public function getShipmentLabel($package_number) {
-        $resp = $this->getShipment($package_number);
-        if ($resp !== false) {
-            return $resp->getLabel();
-        }
+        $url = self::$_base_url . "shipments/$package_number/label";
 
+        $resp = $this->get($url, 'GET');
+
+        if ($resp->isOk()) {
+            return $resp->getData();
+        }
         return false;
     }
 
     public function getShipmentTracking($package_number) {
-        $resp = $this->getShipment($package_number);
-        if ($resp !== false) {
-            return $resp->getTracking();
+        $url = self::$_base_url . "shipments/$package_number/tracking";
+
+        $resp = $this->get($url, 'GET');
+
+        if ($resp->isOk()) {
+            return $resp->jsonDecode(true);
         }
-
         return false;
-    }
-
-    public function getShipmentValidation() {
-
     }
 }

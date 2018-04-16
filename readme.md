@@ -49,6 +49,8 @@ __Properties__:
 __Methods__:  
  - _This class has no methods_
  
+### 
+ 
 ### Sub Classes
 
 #### Address

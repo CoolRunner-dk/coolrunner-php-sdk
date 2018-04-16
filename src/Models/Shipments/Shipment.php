@@ -57,7 +57,7 @@ class Shipment {
     public function __construct($data = null) {
         if (!is_null($data) && is_array($data)) {
             foreach ($data as $key => $value) {
-                if($key === 'droppoint_id') {
+                if ($key === 'droppoint_id') {
                     $key = 'servicepoint_id';
                 }
                 if (property_exists($this, $key)) {
@@ -73,6 +73,8 @@ class Shipment {
     public function create() {
         if ($this->validate() === true && $api = API::getInstance()) {
             $create_data = json_decode(json_encode(get_object_vars($this)), true);
+
+            $create_data['droppoint_id'] = $create_data['servicepoint_id'];
 
             $resp = $api->get(API::getBaseUrl() . 'shipments', 'POST', $create_data);
 
@@ -108,7 +110,7 @@ class Shipment {
                 'sender', 'receiver',
                 'length', 'width', 'height', 'weight',
                 'carrier', 'carrier_product', 'carrier_service',
-                'label_format', 'droppoint_id'
+                'label_format', 'servicepoint_id'
             )
         );
 
@@ -148,7 +150,7 @@ class Shipment {
      */
     public function getPossibleCarriers() {
         if ($api = API::getInstance()) {
-            $ret = new ServicepointCarrierList();
+            $ret = array();
 
             if (isset($this->carrier)) {
                 $carriers = array(strtolower($this->carrier));
@@ -160,6 +162,16 @@ class Shipment {
                 $ret[$carrier] = $api->findServicepoints($carrier, $this->receiver->country, $this->receiver->zipcode, $this->receiver->city, $this->receiver->street1);
             }
 
+
+            $raw = false;
+            $assoc = false;
+            if (is_object($api) && get_class($api) === APILight::class) {
+                $raw = $api->isRaw();
+                $assoc = $api->isAssoc();
+            }
+            if ($raw || $assoc) {
+                return $raw ? json_encode($ret, JSON_PRETTY_PRINT) : json_decode(json_encode($ret));
+            }
             return $ret;
         } else {
             Error::log(500, 'API must be instantiated before being able to pull data | ' . __FILE__);

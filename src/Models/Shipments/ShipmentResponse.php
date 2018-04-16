@@ -87,7 +87,6 @@ class ShipmentResponse {
     public function getTracking() {
         if ($api = API::getInstance()) {
             $res = $api->get($this->_links->tracking);
-            var_dump($this->_links->tracking);
             if ($res->isOk()) {
                 return $res->getData();
             }

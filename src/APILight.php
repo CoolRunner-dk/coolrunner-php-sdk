@@ -27,6 +27,10 @@ class APILight {
     const CARRIER_POSTNORD = 'postnord';
     const DEBUG_MODE       = true;
 
+    const OUTPUT_MODE_RAW    = 0;
+    const OUTPUT_MODE_ASSOC  = 1;
+    const OUTPUT_MODE_OBJECT = 2;
+
     /**
      * API constructor.
      *
@@ -46,22 +50,20 @@ class APILight {
      * @param string $token        Token used for integration with CoolRunner API v3
      * @param string $developer_id [optional] Developer ID - If this library is used with a third party extention
      *                             please enter your extentions name and/or your company name
-     * @param bool   $raw          Return all output as raw json instead of decoded arrays
-     * @param bool   $assoc        Set to true if the data returned should be an associative array,
-     *                             or false if the data returned should be an stdClass.
-     *                             This option has no effect if <b>$raw</b> is set to true
+     * @param int    $mode         Change the output mode of the API (see output mode constants)
      *
+     * @see APILight::OUTPUT_MODE_RAW
      * @return self
      */
-    public static function &load($email, $token, $developer_id = null, $assoc = true, $raw = false) {
+    public static function &load($email, $token, $developer_id = null, $mode = self::OUTPUT_MODE_ASSOC) {
         if (!is_null($developer_id) && (is_int($developer_id) || is_string($developer_id))) {
             self::$_default_headers['X-Developer-Id'] .= " | $developer_id";
         }
 
         if (self::$_instance === false) {
             $apitoken = base64_encode("$email:$token");
-            self::$_raw = $raw;
-            self::$_assoc = $assoc;
+            self::$_raw = $mode === self::OUTPUT_MODE_RAW;
+            self::$_assoc = $mode === self::OUTPUT_MODE_ASSOC;
             self::$_instance = new self($apitoken);
         }
         return self::$_instance;
@@ -170,10 +172,10 @@ class APILight {
      *
      * @see https://docs.coolrunner.dk/v3/#find CoolRunner API v3 Docs Servicepoints/Find
      */
-    public function findServicepoints($carrier, $country_code, $zipcode, $city = '', $street = '') {
+    public function findServicepoints($carrier, $country_code, $zip_code, $city = '', $street = '') {
         $url = self::$_base_url . "servicepoints/$carrier";
 
-        $data = ['country_code' => $country_code, 'zipcode' => $zipcode, 'city' => $city, 'street' => $street];
+        $data = ['country_code' => $country_code, 'zip_code' => $zip_code, 'city' => $city, 'street' => $street];
 
         $resp = $this->get($url, 'GET', $data);
 
@@ -239,6 +241,11 @@ class APILight {
         }
     }
 
+    /**
+     * @param $package_number
+     *
+     * @return bool|array|\stdClass|string
+     */
     public function getShipment($package_number) {
         $url = self::$_base_url . "shipments/$package_number";
 
@@ -250,17 +257,28 @@ class APILight {
         return false;
     }
 
+
+    /**
+     * @param $package_number
+     *
+     * @return bool||string
+     */
     public function getShipmentLabel($package_number) {
         $url = self::$_base_url . "shipments/$package_number/label";
 
         $resp = $this->get($url, 'GET');
 
         if ($resp->isOk()) {
-            return self::$_raw ? $resp->getData() : $resp->jsonDecode(self::$_assoc);
+            return $resp->getData();
         }
         return false;
     }
 
+    /**
+     * @param $package_number
+     *
+     * @return bool||string
+     */
     public function getShipmentTracking($package_number) {
         $url = self::$_base_url . "shipments/$package_number/tracking";
 
