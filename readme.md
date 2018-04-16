@@ -7,7 +7,9 @@ composer require coolrunner/sdk-v3
 
 # Usage
 
-## Hintint
+Full documentation available in the wiki
+
+## Hinting
 Full PhpDoc support should be available for most IDEs
 
 ## Instanciation
