@@ -1,6 +1,6 @@
 {
-    "name"        : "coolrunner/api-v3",
-    "description" : "CoolRunner API v3 SDK",
+    "name"        : "coolrunner/php-sdk",
+    "description" : "CoolRunner API SDK",
     "keywords"    : [
         "coolrunner",
         "shipping",
