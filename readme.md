@@ -7,7 +7,7 @@ composer require coolrunner/sdk-v3
 
 # Usage
 
-Full documentation available in the wiki
+Full documentation available in the [Wiki](https://github.com/CoolRunner-dk/coolrunner-php-sdk/wiki)
 
 ## Hinting
 Full PhpDoc support should be available for most IDEs
@@ -24,62 +24,3 @@ If the page is unaccessible please contact our support
 ```php
 $api = CoolRunnerSDK\API::load('<your@email.here>', '<your token here>');
 ```
-
-## Classes
-
-### Servicepoint
-Servicepoint objects contain certain information on the servicepoint it describes
-
-__Properties__:
- - ```id``` : _int_  
- Internal ID of the servicepoint
- - ```name``` : _string_  
- Internal name of the servicepoint
- - ```distance``` : _int_  
- Distance to the servicepoint
- - ```address``` : _string|Address_  
- Address of the servicepoint
- - ```coordinates``` : _string|Coordinates_  
- Coordinates of the servicepoint
- - ```opening_hours``` : _string|OpeningHours_  
- Opening hours of the servicepoint
- 
- <sub>_Distance is only available if the servicepoint has been pulled with a full origin address (country, zip, city and street)_</sub>
-
-__Methods__:  
- - _This class has no methods_
- 
-### 
- 
-### Sub Classes
-
-#### Address
-_Address of the servicepoint_
-
-__Properties__:
- - ```street``` : _string_  
- Street name
- - ```zip_code``` : _string_  
- City zip code
- - ```city``` : _string_  
- City name
- - ```country_code``` : _string_  
- ISO 3166-1 Alpha-2 format
-
-__Methods__:
- - ```$addr->toString($format = ':street, :country-:zip :city')``` : _string_
-    - Return Address in a specified format as a string<br>
-    The default format if the object is cast as a string is ':street, :country-:zip :city' 
-
-#### Coordinates
-_Coordinates of the servicepoint_
-
-__Properties__:
- - ```longitude``` : _float_
- - ```latitude``` : _float_
- 
-__Methods__:
- - _This class has no methods_
-
-#### 
-
