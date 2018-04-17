@@ -32,6 +32,11 @@ class API {
     protected static $token;
 
     /**
+     * @var null|CurlResponse
+     */
+    protected $_last_response = null;
+
+    /**
      * Carrier GLS
      */
     const CARRIER_GLS = 'GLS';
@@ -112,15 +117,22 @@ class API {
     }
 
     /**
+     * Execute a cURL request against a given address with POST/GET and custom data
+     *
+     * If the request method is GET, then the supplied data will be url encoded and appended to the url.
+     *
+     * If the request method is POST, then the supplied data will be url encoded and sent with the request
+     *
+     * If enc_type is json, then the supplied data will be json encoded and sent with the request, along with appropriate content headers
+     *
      * @param string $url
-     * @param string $method POST|GET
+     * @param string $method   POST|GET
      * @param array  $data
+     * @param string $enc_type Form encoding type. Allowed values: 'json', ''
      *
      * @return CurlResponse
      */
-    public function get($url, $method = 'GET', $data = []) {
-        $data = array_filter($data);
-
+    public function get($url, $method = 'GET', $data = array(), $enc_type = '') {
         $opts = [
             CURLOPT_HTTPHEADER     => $this->buildHeaders(),
             CURLOPT_RETURNTRANSFER => true,
@@ -141,6 +153,18 @@ class API {
                 throw new \InvalidArgumentException("Parameter method must be either POST or GET for " . __METHOD__);
         }
 
+        switch (strtolower($enc_type)) {
+            case 'json':
+                $opts[CURLOPT_POSTFIELDS] = json_encode($data);
+                $opts[CURLOPT_HTTPHEADER] = array_merge(
+                    array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($opts[CURLOPT_POSTFIELDS])
+                    ), $opts[CURLOPT_HTTPHEADER]
+                );
+                break;
+        }
+
         $ch = curl_init($url);
         curl_setopt_array($ch, $opts);
 
@@ -148,15 +172,22 @@ class API {
         $info = curl_getinfo($ch);
         $error = curl_error($ch);
 
-        $resp = new CurlResponse($data, $info, $error);
+        $this->_last_response = new CurlResponse($data, $info, $error);
 
-        if ($resp->isUnauthorized() || $resp->isError() || $resp->isNotFound()) {
-            Error::log($resp->getHttpResponseCode(), $resp->getErrorMsg());
+        if ($this->_last_response->isUnauthorized() || $this->_last_response->isError() || $this->_last_response->isNotFound()) {
+            Error::log($this->_last_response->getHttpResponseCode(), $this->_last_response->getErrorMsg());
         }
 
         curl_close($ch);
 
-        return $resp;
+        return $this->_last_response;
+    }
+
+    /**
+     * @return CurlResponse|null
+     */
+    public function getLastResponse() {
+        return $this->_last_response;
     }
 
     /**
@@ -219,7 +250,7 @@ class API {
         $resp = $this->get($url, 'GET');
 
         if ($resp->isOk()) {
-            return Servicepoint::parseFromJSON($resp->toString(), 0);
+            return Servicepoint::parseFromJSON($resp->toString());
         }
         return false;
     }
@@ -247,14 +278,21 @@ class API {
     /**
      * @param Shipment $shipment
      *
-     * @return ShipmentResponse
+     * @return ShipmentResponse|false
      */
     public function createShipment($shipment) {
         if (is_object($shipment) && get_class($shipment) === Shipment::class) {
             return $shipment->create();
         }
+
+        return false;
     }
 
+    /**
+     * @param $package_number
+     *
+     * @return bool|ShipmentResponse
+     */
     public function getShipment($package_number) {
         $url = self::$_base_url . "shipments/$package_number";
 
@@ -266,6 +304,11 @@ class API {
         return false;
     }
 
+    /**
+     * @param $package_number
+     *
+     * @return bool|string
+     */
     public function getShipmentLabel($package_number) {
         $url = self::$_base_url . "shipments/$package_number/label";
 
@@ -277,6 +320,11 @@ class API {
         return false;
     }
 
+    /**
+     * @param $package_number
+     *
+     * @return bool|array
+     */
     public function getShipmentTracking($package_number) {
         $url = self::$_base_url . "shipments/$package_number/tracking";
 
