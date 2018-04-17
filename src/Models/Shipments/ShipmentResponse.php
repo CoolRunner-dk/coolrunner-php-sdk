@@ -8,7 +8,6 @@
 namespace CoolRunnerSDK\Models\Shipments;
 
 use CoolRunnerSDK\API;
-use CoolRunnerSDK\APILight;
 use CoolRunnerSDK\Models\Error;
 use CoolRunnerSDK\Models\Properties\Person;
 
@@ -61,7 +60,7 @@ class ShipmentResponse {
         if ($api = API::getInstance()) {
             return new self($api->get($this->_links->self)->jsonDecode(true));
         } else {
-            Error::log(500, 'API must be instantiated before being able to pull data | ' . __FILE__);
+            Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
 
         return false;
@@ -78,7 +77,7 @@ class ShipmentResponse {
                 return $res->getData();
             }
         } else {
-            Error::log(500, 'API must be instantiated before being able to pull data | ' . __FILE__);
+            Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
 
         return false;
@@ -91,7 +90,7 @@ class ShipmentResponse {
                 return $res->getData();
             }
         } else {
-            Error::log(500, 'API must be instantiated before being able to pull data | ' . __FILE__);
+            Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
 
         return false;

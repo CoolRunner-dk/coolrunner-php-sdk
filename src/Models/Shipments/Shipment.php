@@ -11,12 +11,9 @@ namespace CoolRunnerSDK\Models\Shipments;
 use CoolRunnerSDK\API;
 use CoolRunnerSDK\APILight;
 use CoolRunnerSDK\Models\Error;
-use CoolRunnerSDK\Models\Products\CarrierList;
 use CoolRunnerSDK\Models\Products\Product;
 use CoolRunnerSDK\Models\Products\ProductList;
-use CoolRunnerSDK\Models\Products\ProductTypeList;
 use CoolRunnerSDK\Models\Properties\Person;
-use CoolRunnerSDK\Models\ServicePoints\Servicepoint;
 use CoolRunnerSDK\Models\ServicePoints\ServicepointCarrierList;
 use CoolRunnerSDK\Models\ServicePoints\ServicepointList;
 
@@ -97,7 +94,7 @@ class Shipment {
             }
         } else {
             if (!API::getInstance()) {
-                Error::log(500, 'API must be instantiated before being able to push data | ' . __FILE__);
+                Error::log(500, 'CoolRunner SDK must be instantiated before being able to push data | ' . __FILE__);
             }
         }
 
@@ -150,6 +147,10 @@ class Shipment {
      */
     public function getPossibleCarriers() {
         if ($api = API::getInstance()) {
+            if (get_class($api) === APILight::class) {
+                Error::log(500, 'CoolRunner SDK Light doesn\'t support helper methods for Shipments | ' . __FILE__);
+                return false;
+            }
             $ret = array();
 
             if (isset($this->carrier)) {
@@ -174,7 +175,7 @@ class Shipment {
             }
             return $ret;
         } else {
-            Error::log(500, 'API must be instantiated before being able to pull data | ' . __FILE__);
+            Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
 
         return false;
@@ -185,6 +186,10 @@ class Shipment {
      */
     public function getPossibleProducts() {
         if ($api = API::getInstance()) {
+            if (get_class($api) === APILight::class) {
+                Error::log(500, 'CoolRunner SDK Light doesn\'t support helper methods for Shipments | ' . __FILE__);
+                return false;
+            }
             $prods = $api->getProducts($this->sender->country, $this->receiver->country);
 
             if (isset($this->carrier)) {
@@ -199,7 +204,7 @@ class Shipment {
                 }
             }
         } else {
-            Error::log(500, 'API must be instantiated before being able to pull data | ' . __FILE__);
+            Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
 
         return false;
