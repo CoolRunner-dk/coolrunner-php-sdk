@@ -74,7 +74,7 @@ class API {
      *
      * @return API
      */
-    public static function &load($email, $token, $developer_id = null) {
+    public static function load($email, $token, $developer_id = null) {
         if (!is_null($developer_id) && (is_int($developer_id) || is_string($developer_id))) {
             self::$_default_headers['X-Developer-Id'] .= " | $developer_id";
         }
