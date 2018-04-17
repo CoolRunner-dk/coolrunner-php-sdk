@@ -71,11 +71,7 @@ class ShipmentResponse {
      */
     public function getLabel() {
         if ($api = API::getInstance()) {
-            $res = $api->get($this->_links->label);
-
-            if ($res->isOk()) {
-                return $res->getData();
-            }
+            return $api->getShipmentLabel($this->package_number);
         } else {
             Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
@@ -85,10 +81,7 @@ class ShipmentResponse {
 
     public function getTracking() {
         if ($api = API::getInstance()) {
-            $res = $api->get($this->_links->tracking);
-            if ($res->isOk()) {
-                return $res->getData();
-            }
+            return $api->getShipmentTracking($this->package_number);
         } else {
             Error::log(500, 'CoolRunner SDK must be instantiated before being able to pull data | ' . __FILE__);
         }
@@ -104,45 +97,5 @@ class ShipmentResponse {
         if (property_exists($this, $name)) {
             $this->{$name} = !isset($this->{$name}) ? $value : $this->{$name};
         }
-    }
-
-    /**
-     * @param mixed  $data
-     * @param string $cache_dir
-     */
-    public function test_save_to_cache($data = null, $cache_dir = 'cache') {
-        if (isset($this->package_number)) {
-            $data = json_encode(!is_null($data) ? $data : $this, JSON_PRETTY_PRINT);
-
-            file_put_contents($_SERVER['DOCUMENT_ROOT'] . "$cache_dir/$this->package_number.json", $data);
-        }
-    }
-
-    /**
-     * @param string $package_number
-     * @param string $cache_dir
-     *
-     * @return bool|ShipmentResponse
-     */
-    public static function test_get_from_cache($package_number, $cache_dir = 'cache') {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "$cache_dir/$package_number.json")) {
-            return new self(json_decode(file_get_contents($_SERVER['DOCUMENT_ROOT'] . "$cache_dir/$package_number.json"), true));
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $cache_dir
-     *
-     * @return ShipmentResponse[]
-     */
-    public static function test_get_all_from_cache($cache_dir = 'cache') {
-        $ret = array();
-        foreach (glob($_SERVER['DOCUMENT_ROOT'] . "$cache_dir/*.json") as $filepath) {
-            $ret[] = new self(json_decode(file_get_contents($filepath), true));
-        }
-
-        return $ret;
     }
 }
