@@ -10,10 +10,9 @@
     "license"     : "MIT",
     "authors"     : [
         {
-            "name"     : "Morten Harders",
-            "homepage" : "http://coolrunner.dk",
-            "role"     : "Developer",
-            "email"    : "mh@coolrunner.dk"
+            "name"  : "Morten Harders",
+            "role"  : "Developer",
+            "email" : "mh@coolrunner.dk"
         }
     ],
     "require"     : {
