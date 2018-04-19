@@ -15,11 +15,19 @@ namespace CoolRunnerSDK;
 class CurlResponse {
     protected $_data, $_info, $_errors;
 
-    const HTTP_OK                 = 200;
-    const HTTP_CREATED            = 201;
-    const HTTP_NOT_FOUND          = 404;
-    const HTTP_UNAUTHORIZED       = 401;
-    const HTTP_IM_A_LITTLE_TEAPOT = 418;
+    const HTTP_OK      = 200;
+    const HTTP_CREATED = 201;
+
+    const HTTP_UNAUTHORIZED         = 401;
+    const HTTP_FORBIDDEN            = 403;
+    const HTTP_NOT_FOUND            = 404;
+    const HTTP_NOT_ACCEPTABLE       = 406;
+    const HTTP_GONE                 = 410;
+    const HTTP_IM_A_LITTLE_TEAPOT   = 418;
+    const HTTP_UNPROCESSABLE_ENTITY = 422;
+    const HTTP_TOO_MANY_REQUESTS    = 429;
+    const HTTP_INTERNAL             = 500;
+    const HTTP_SERVICE_UNAVAILABLE  = 503;
 
     /**
      * CurlResponse constructor.
@@ -62,14 +70,70 @@ class CurlResponse {
      * @return bool True if HTTP response code is 401, else false
      */
     public function isUnauthorized() {
-        return $this->getHttpResponseCode() === self::HTTP_UNAUTHORIZED;
+        return $this->is(self::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 403, else false
+     */
+    public function isForbidden() {
+        return $this->is(self::HTTP_FORBIDDEN);
     }
 
     /**
      * @return bool True if HTTP response code is 404, else false
      */
     public function isNotFound() {
-        return $this->getHttpResponseCode() === self::HTTP_NOT_FOUND;
+        return $this->is(self::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 406, else false
+     */
+    public function isNotAcceptable() {
+        return $this->is(self::HTTP_NOT_ACCEPTABLE);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 410, else false
+     */
+    public function isGone() {
+        return $this->is(self::HTTP_GONE);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 418, else false
+     */
+    public function isImALittleTeapot() {
+        return $this->is(self::HTTP_IM_A_LITTLE_TEAPOT);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 422, else false
+     */
+    public function isProcessableEntity() {
+        return $this->is(self::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 429, else false
+     */
+    public function isTooManyRequests() {
+        return $this->is(self::HTTP_TOO_MANY_REQUESTS);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 500, else false
+     */
+    public function isInternalError() {
+        return $this->is(self::HTTP_INTERNAL);
+    }
+
+    /**
+     * @return bool True if HTTP response code is 503, else false
+     */
+    public function isServiceUnavailable() {
+        return $this->is(self::HTTP_INTERNAL);
     }
 
     /**
