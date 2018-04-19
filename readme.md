@@ -2,7 +2,7 @@
 Composer
 
 ```bash
-composer require coolrunner/sdk-v3
+composer require coolrunner/php-sdk
 ```
 
 # Usage
