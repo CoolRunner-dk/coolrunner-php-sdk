@@ -19,19 +19,29 @@ use CoolRunnerSDK\Models\Properties\Person;
  * @property ShipmentLinks $_links
  * @property Person        $sender
  * @property Person        $receiver
- * @property string        $servicepoint_id
  * @property string        $length
  * @property string        $width
  * @property string        $height
  * @property string        $weight
+ * @property string        $carrier
+ * @property string        $carrier_product
+ * @property string        $carrier_service
+ * @property string        $reference
+ * @property string        $description
+ * @property string        $comment
+ * @property string        $servicepoint_id
+ * @property string        $label_format
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
 class ShipmentResponse {
     protected
         $package_number, $price, $_links, $product,
-        $sender, $receiver, $servicepoint_id,
-        $length, $width, $height, $weight;
+        $sender, $receiver,
+        $length, $width, $height, $weight,
+        $carrier, $carrier_product, $carrier_service,
+        $reference, $description, $comment,
+        $servicepoint_id, $label_format = 'LabelPrint';
 
     protected static $raw = false, $assoc = true;
 

@@ -31,6 +31,7 @@ use CoolRunnerSDK\Models\ServicePoints\ServicepointList;
  * @property string $carrier_service
  * @property string $reference
  * @property string $description
+ * @property string $comment
  * @property string $servicepoint_id
  * @property string $label_format
  *
@@ -43,7 +44,7 @@ class Shipment {
     protected
         $length, $width, $height, $weight,
         $carrier, $carrier_product, $carrier_service,
-        $reference, $description,
+        $reference, $description, $comment,
         $servicepoint_id, $label_format = 'LabelPrint';
 
     /**
