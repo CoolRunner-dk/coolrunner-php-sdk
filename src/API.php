@@ -12,8 +12,10 @@ use CoolRunnerSDK\Models\Error;
 use CoolRunnerSDK\Models\Products\CarrierList;
 use CoolRunnerSDK\Models\Products\CountryList;
 use CoolRunnerSDK\Models\ServicePoints\Servicepoint;
+use CoolRunnerSDK\Models\ServicePoints\ServicepointList;
 use CoolRunnerSDK\Models\Shipments\Shipment;
 use CoolRunnerSDK\Models\Shipments\ShipmentResponse;
+use CoolRunnerSDK\Models\Shipments\ShipmentTracking;
 
 /**
  * Class API
@@ -125,9 +127,9 @@ class API {
      *
      * If enc_type is json, then the supplied data will be json encoded and sent with the request, along with appropriate content headers
      *
-     * @param string $url
+     * @param string $url      URL to send the request to
      * @param string $method   POST|GET
-     * @param array  $data
+     * @param array  $data     Array of data to be sent along with the request
      * @param string $enc_type Form encoding type. Allowed values: 'json', ''
      *
      * @return CurlResponse
@@ -215,7 +217,7 @@ class API {
      * @param string $city         <i>[Optional]</i> City. eg. Aalborg
      * @param string $street       <i>[Optional]</i> Street. eg. Slotsgade 8
      *
-     * @return Servicepoint[]|false
+     * @return Servicepoint[]|ServicepointList|false
      *
      * @see https://docs.coolrunner.dk/v3/#find CoolRunner API v3 Docs Servicepoints/Find
      */
@@ -256,12 +258,14 @@ class API {
     }
 
     /**
+     * Get all products available from one country to another
+     *
      * @param string $from_country_code
      * @param string $to_country_code
      *
-     * @return bool|CountryList|CarrierList[]|CarrierList|false
+     * @return bool|CountryList|CarrierList[]|false
      *
-     * @see https://docs.coolrunner.dk/v3/#gat-3 CoolRunner API v3 Docs Products/Get
+     * @see https://docs.coolrunner.dk/v3/#get-3 CoolRunner API v3 Docs Products/Get
      */
     public function getProducts($from_country_code, $to_country_code = '') {
         $url = self::$_base_url . "products/$from_country_code";
@@ -323,7 +327,7 @@ class API {
     /**
      * @param $package_number
      *
-     * @return bool|array
+     * @return bool|ShipmentTracking
      */
     public function getShipmentTracking($package_number) {
         $url = self::$_base_url . "shipments/$package_number/tracking";
@@ -331,7 +335,7 @@ class API {
         $resp = $this->get($url, 'GET');
 
         if ($resp->isOk()) {
-            return $resp->jsonDecode(true);
+            return new ShipmentTracking($resp->jsonDecode(true));
         }
         return false;
     }

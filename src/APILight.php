@@ -254,7 +254,7 @@ class APILight {
      *
      * @return array|bool
      *
-     * @see https://docs.coolrunner.dk/v3/#gat-3 CoolRunner API v3 Docs Products/Get
+     * @see https://docs.coolrunner.dk/v3/#get-3 CoolRunner API v3 Docs Products/Get
      */
     public function getProducts($from_country_code, $to_country_code = '') {
         $url = self::$_base_url . "products/$from_country_code";
