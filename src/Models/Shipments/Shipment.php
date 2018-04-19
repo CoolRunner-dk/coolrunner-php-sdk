@@ -66,7 +66,7 @@ class Shipment {
     }
 
     /**
-     * @return bool|ShipmentResponse|mixed|string
+     * @return bool|ShipmentInfo|mixed|string
      */
     public function create() {
         if ($this->validate() === true && $api = API::getInstance()) {
@@ -91,7 +91,7 @@ class Shipment {
                 if ($raw || $assoc) {
                     return $raw ? $resp->getData() : $resp->jsonDecode($assoc);
                 }
-                return ShipmentResponse::create($resp->jsonDecode(true));
+                return ShipmentInfo::create($resp->jsonDecode(true));
             }
         } else {
             if (!API::getInstance()) {

@@ -14,7 +14,7 @@ use CoolRunnerSDK\Models\Products\CountryList;
 use CoolRunnerSDK\Models\ServicePoints\Servicepoint;
 use CoolRunnerSDK\Models\ServicePoints\ServicepointList;
 use CoolRunnerSDK\Models\Shipments\Shipment;
-use CoolRunnerSDK\Models\Shipments\ShipmentResponse;
+use CoolRunnerSDK\Models\Shipments\ShipmentInfo;
 use CoolRunnerSDK\Models\Shipments\ShipmentTracking;
 
 /**
@@ -282,7 +282,7 @@ class API {
     /**
      * @param Shipment $shipment
      *
-     * @return ShipmentResponse|false
+     * @return ShipmentInfo|false
      */
     public function createShipment($shipment) {
         if (is_object($shipment) && get_class($shipment) === Shipment::class) {
@@ -295,7 +295,7 @@ class API {
     /**
      * @param $package_number
      *
-     * @return bool|ShipmentResponse
+     * @return bool|ShipmentInfo
      */
     public function getShipment($package_number) {
         $url = self::$_base_url . "shipments/$package_number";
@@ -303,7 +303,7 @@ class API {
         $resp = $this->get($url, 'GET');
 
         if ($resp->isOk()) {
-            return ShipmentResponse::create($resp->jsonDecode(true));
+            return ShipmentInfo::create($resp->jsonDecode(true));
         }
         return false;
     }

@@ -12,7 +12,7 @@ use CoolRunnerSDK\Models\Error;
 use CoolRunnerSDK\Models\Properties\Person;
 
 /**
- * Class ShipmentResponse
+ * Class ShipmentInfo
  *
  * @property string        $package_number
  * @property ShipmentPrice $price
@@ -34,7 +34,7 @@ use CoolRunnerSDK\Models\Properties\Person;
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
-class ShipmentResponse {
+class ShipmentInfo {
     protected
         $package_number, $price, $_links, $product,
         $sender, $receiver,

@@ -10,7 +10,7 @@ namespace CoolRunnerSDK;
 
 use CoolRunnerSDK\Models\Error;
 use CoolRunnerSDK\Models\Shipments\Shipment;
-use CoolRunnerSDK\Models\Shipments\ShipmentResponse;
+use CoolRunnerSDK\Models\Shipments\ShipmentInfo;
 
 class APILight {
     protected static $_version         = null;
@@ -271,7 +271,7 @@ class APILight {
     /**
      * @param Shipment $shipment
      *
-     * @return ShipmentResponse|false
+     * @return ShipmentInfo|false
      */
     public function createShipment($shipment) {
         if (is_object($shipment) && get_class($shipment) === Shipment::class) {
