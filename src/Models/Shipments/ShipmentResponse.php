@@ -52,8 +52,6 @@ class ShipmentResponse {
         $this->_links = new ShipmentLinks($this->_links);
         $this->sender = new Person($this->sender);
         $this->receiver = new Person($this->receiver);
-
-        $this->test_save_to_cache($data);
     }
 
     public function getSelf() {
