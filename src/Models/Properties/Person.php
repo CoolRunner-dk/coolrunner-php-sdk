@@ -17,7 +17,7 @@ namespace CoolRunnerSDK\Models\Properties;
 class Person {
     public
         $name, $attention, $street1,
-        $street2, $zipcode, $city,
+        $street2, $zip_code, $city,
         $country, $phone, $email,
         $notify_sms, $notify_email;
 
@@ -31,7 +31,7 @@ class Person {
      *  'attention'    => 'Mayo Naise',[Optional]
      *  'street1'      => 'Fridge street 1337',
      *  'street2'      => '',                   [Optional]
-     *  'zipcode'     => '1234',
+     *  'zip_code'     => '1234',
      *  'city'         => 'Freezeville',
      *  'country'      => 'DK',
      *  'phone'        => '12341234',
@@ -51,6 +51,7 @@ class Person {
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $key = $key === 'street' ? 'street1' : $key;
+                $key = $key === 'zipcode' ? 'zip_code' : $key;
                 if (property_exists($this, $key)) {
                     $this->{$key} = $value;
                 }
