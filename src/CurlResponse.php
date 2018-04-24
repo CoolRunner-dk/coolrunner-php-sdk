@@ -111,7 +111,7 @@ class CurlResponse {
     /**
      * @return bool True if HTTP response code is 422, else false
      */
-    public function isProcessableEntity() {
+    public function isUnprocessableEntity() {
         return $this->is(self::HTTP_UNPROCESSABLE_ENTITY);
     }
 
