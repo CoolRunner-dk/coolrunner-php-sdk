@@ -11,7 +11,7 @@ namespace CoolRunnerSDK\Models\Properties;
 use CoolRunnerSDK\Models\CoolObject;
 
 abstract class Property
-    extends CoolObject {
+    extends CoolObject implements \JsonSerializable {
     public function __construct($obj) {
         if (!is_array($obj)) {
             $obj = json_decode(json_encode($obj), true);
@@ -29,5 +29,9 @@ abstract class Property
 
     public function __set($name, $value) {
         $this->{strtolower($name)} = $value;
+    }
+
+    public function jsonSerialize() {
+        return json_encode(get_object_vars($this));
     }
 }

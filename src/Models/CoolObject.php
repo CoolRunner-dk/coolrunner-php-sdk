@@ -8,7 +8,7 @@
 namespace CoolRunnerSDK\Models;
 
 
-class CoolObject {
+class CoolObject implements \JsonSerializable {
 
     /**
      * Convert to JSON
@@ -28,5 +28,9 @@ class CoolObject {
      */
     public function toArray() {
         return json_decode($this->toJson(), true);
+    }
+
+    public function jsonSerialize() {
+        return $this->toJson();
     }
 }
