@@ -16,7 +16,7 @@ namespace CoolRunnerSDK\Models\Properties;
  *
  * @package CoolRunnerSDK\Models\Properties
  */
-class Timespan {
+class Timespan implements \JsonSerializable {
     protected $from, $to;
 
     public function __construct($from, $to) {
@@ -30,5 +30,9 @@ class Timespan {
 
     public function __get($name) {
         return $this->{$name};
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }
