@@ -65,7 +65,7 @@ class Person {
      * @return string[]|true Returns an array of invalid fields, or true if all fields are valid
      */
     public function validateSender() {
-        $required_fields = array('name', 'street1', 'zipcode', 'city', 'country', 'phone', 'email');
+        $required_fields = array('name', 'street1', 'zip_code', 'city', 'country', 'phone', 'email');
         return $this->validateFields($required_fields);
     }
 
@@ -77,7 +77,7 @@ class Person {
      * @return string[]|true Returns an array of invalid fields, or true if all fields are valid
      */
     public function validateReceiver($explicit = false) {
-        $required_fields = array('name', 'street1', 'zipcode', 'city', 'country', 'phone', 'email', 'notify_sms', 'notify_email');
+        $required_fields = array('name', 'street1', 'zip_code', 'city', 'country', 'phone', 'email', 'notify_sms', 'notify_email');
         $errors = $this->validateFields($required_fields);
         if (is_array($errors) && !$explicit) {
             if (in_array('notify_sms', $errors) && !in_array('phone', $errors)) {
