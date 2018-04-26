@@ -32,6 +32,6 @@ abstract class Property
     }
 
     public function jsonSerialize() {
-        return json_encode(get_object_vars($this));
+        return get_object_vars($this);
     }
 }

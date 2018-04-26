@@ -13,7 +13,7 @@ namespace CoolRunnerSDK\Models;
  * @package CoolRunnerSDK\Models
  */
 abstract class CoolArrayObject
-    implements \ArrayAccess, \Countable, \Iterator {
+    implements \ArrayAccess, \Countable, \Iterator, \JsonSerializable {
     protected $__data = array();
 
     /**
@@ -34,6 +34,10 @@ abstract class CoolArrayObject
      */
     public function toArray() {
         return $this->__data;
+    }
+
+    public function jsonSerialize() {
+        return $this->toArray();
     }
 
     // region ArrayAccess

@@ -31,6 +31,6 @@ class CoolObject implements \JsonSerializable {
     }
 
     public function jsonSerialize() {
-        return $this->toJson();
+        return $this->toArray();
     }
 }
