@@ -7,6 +7,8 @@
 
 namespace CoolRunnerSDK\Models\Shipments;
 
+use CoolRunnerSDK\Models\CoolObject;
+
 /**
  * Class ShipmentTrackingEntry
  *
@@ -17,7 +19,8 @@ namespace CoolRunnerSDK\Models\Shipments;
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
-class ShipmentTrackingEntry {
+class ShipmentTrackingEntry
+    extends CoolObject {
     protected $timestamp, $title, $event, $location;
 
 

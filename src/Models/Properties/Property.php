@@ -8,7 +8,10 @@
 namespace CoolRunnerSDK\Models\Properties;
 
 
-abstract class Property {
+use CoolRunnerSDK\Models\CoolObject;
+
+abstract class Property
+    extends CoolObject {
     public function __construct($obj) {
         if (!is_array($obj)) {
             $obj = json_decode(json_encode($obj), true);

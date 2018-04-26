@@ -8,6 +8,7 @@
 namespace CoolRunnerSDK\Models\Shipments;
 
 use CoolRunnerSDK\API;
+use CoolRunnerSDK\Models\CoolObject;
 use CoolRunnerSDK\Models\Error;
 use CoolRunnerSDK\Models\Properties\Person;
 
@@ -34,7 +35,8 @@ use CoolRunnerSDK\Models\Properties\Person;
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
-class ShipmentInfo {
+class ShipmentInfo
+    extends CoolObject {
     protected
         $package_number, $price, $_links, $product,
         $sender, $receiver,

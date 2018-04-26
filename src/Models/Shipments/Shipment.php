@@ -10,6 +10,7 @@ namespace CoolRunnerSDK\Models\Shipments;
 
 use CoolRunnerSDK\API;
 use CoolRunnerSDK\APILight;
+use CoolRunnerSDK\Models\CoolObject;
 use CoolRunnerSDK\Models\Error;
 use CoolRunnerSDK\Models\Products\Product;
 use CoolRunnerSDK\Models\Products\ProductList;
@@ -37,7 +38,8 @@ use CoolRunnerSDK\Models\ServicePoints\ServicepointList;
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
-class Shipment {
+class Shipment
+    extends CoolObject {
     /** @var Person */
     protected $receiver, $sender;
     /** @var string */

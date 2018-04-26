@@ -8,6 +8,7 @@
 namespace CoolRunnerSDK\Models\Products;
 
 
+use CoolRunnerSDK\Models\CoolObject;
 use CoolRunnerSDK\Models\Properties\MaxSize;
 use CoolRunnerSDK\Models\Properties\Prices;
 use CoolRunnerSDK\Models\Properties\Service;
@@ -24,7 +25,8 @@ use CoolRunnerSDK\Models\Properties\Weight;
  *
  * @package CoolRunnerSDK\Models\Products
  */
-class Product {
+class Product
+    extends CoolObject {
     protected $title;
     protected $max_size;
     protected $weight;

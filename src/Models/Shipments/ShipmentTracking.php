@@ -7,6 +7,8 @@
 
 namespace CoolRunnerSDK\Models\Shipments;
 
+use CoolRunnerSDK\Models\CoolObject;
+
 /**
  * Class ShipmentTracking
  *
@@ -17,6 +19,7 @@ namespace CoolRunnerSDK\Models\Shipments;
  * @package CoolRunnerSDK\Models\Shipments
  */
 class ShipmentTracking
+    extends CoolObject
     implements \ArrayAccess, \Iterator, \Countable {
     protected $package_number, $carrier;
 

@@ -16,6 +16,26 @@ abstract class CoolArrayObject
     implements \ArrayAccess, \Countable, \Iterator {
     protected $__data = array();
 
+    /**
+     * Convert to JSON
+     *
+     * @param bool $pretty Returned data should be formatted
+     *
+     * @return string Resulting JSON
+     */
+    public function toJson($pretty = false) {
+        return json_encode($this->__data, $pretty ? constant('JSON_PRETTY_PRINT') : 0);
+    }
+
+    /**
+     * Convert to Array
+     *
+     * @return array
+     */
+    public function toArray() {
+        return $this->__data;
+    }
+
     // region ArrayAccess
 
     /**

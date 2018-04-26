@@ -8,6 +8,7 @@
 namespace CoolRunnerSDK\Models\ServicePoints;
 
 
+use CoolRunnerSDK\Models\CoolObject;
 use CoolRunnerSDK\Models\JSONParsable;
 use CoolRunnerSDK\Models\Properties\Address;
 use CoolRunnerSDK\Models\Properties\Coordinates;
@@ -25,7 +26,8 @@ use CoolRunnerSDK\Models\Properties\OpeningHours;
  *
  * @package CoolRunnerSDK\Models
  */
-class Servicepoint {
+class Servicepoint
+    extends CoolObject {
     /** @var int */
     protected $id;
     /** @var string */
