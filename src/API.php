@@ -101,7 +101,7 @@ class API {
      * @return string
      */
     public static function getBaseUrl() {
-        return self::$_base_url;
+        return static::$_base_url;
     }
 
     /**
@@ -222,7 +222,7 @@ class API {
      * @see https://docs.coolrunner.dk/v3/#find CoolRunner API v3 Docs Servicepoints/Find
      */
     public function findServicepoints($carrier, $country_code, $zip_code, $city = '', $street = '') {
-        $url = self::$_base_url . "servicepoints/$carrier";
+        $url = self::getBaseUrl() . "servicepoints/$carrier";
 
         $data = ['country_code' => $country_code, 'zip_code' => $zip_code, 'city' => $city, 'street' => $street];
 
@@ -247,7 +247,7 @@ class API {
      * @see https://docs.coolrunner.dk/v3/#find CoolRunner API v3 Docs Servicepoints/Get
      */
     public function getServicepoint($carrier, $id) {
-        $url = self::$_base_url . "servicepoints/$carrier/$id";
+        $url = self::getBaseUrl() . "servicepoints/$carrier/$id";
 
         $resp = $this->get($url, 'GET');
 
@@ -268,7 +268,7 @@ class API {
      * @see https://docs.coolrunner.dk/v3/#get-3 CoolRunner API v3 Docs Products/Get
      */
     public function getProducts($from_country_code, $to_country_code = '') {
-        $url = self::$_base_url . "products/$from_country_code";
+        $url = self::getBaseUrl() . "products/$from_country_code";
 
         $resp = $this->get($url, 'GET');
 
@@ -298,7 +298,7 @@ class API {
      * @return bool|ShipmentInfo
      */
     public function getShipment($package_number) {
-        $url = self::$_base_url . "shipments/$package_number";
+        $url = self::getBaseUrl() . "shipments/$package_number";
 
         $resp = $this->get($url, 'GET');
 
@@ -314,7 +314,7 @@ class API {
      * @return bool|string
      */
     public function getShipmentLabel($package_number) {
-        $url = self::$_base_url . "shipments/$package_number/label";
+        $url = self::getBaseUrl() . "shipments/$package_number/label";
 
         $resp = $this->get($url, 'GET');
 
@@ -330,7 +330,7 @@ class API {
      * @return bool|ShipmentTracking
      */
     public function getShipmentTracking($package_number) {
-        $url = self::$_base_url . "shipments/$package_number/tracking";
+        $url = self::getBaseUrl() . "shipments/$package_number/tracking";
 
         $resp = $this->get($url, 'GET');
 
