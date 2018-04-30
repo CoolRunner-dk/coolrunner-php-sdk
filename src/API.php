@@ -224,7 +224,7 @@ class API {
     public function findServicepoints($carrier, $country_code, $zip_code, $city = '', $street = '') {
         $url = self::$_base_url . "servicepoints/$carrier";
 
-        $data = ['country_code' => $country_code, 'zipcode' => $zip_code, 'city' => $city, 'street' => $street];
+        $data = ['country_code' => $country_code, 'zip_code' => $zip_code, 'city' => $city, 'street' => $street];
 
         $resp = $this->get($url, 'GET', $data);
 
