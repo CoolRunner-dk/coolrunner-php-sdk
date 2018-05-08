@@ -61,7 +61,11 @@ class Shipment
                     $key = 'servicepoint_id';
                 }
                 if (property_exists($this, $key)) {
-                    $this->{$key} = $value;
+                    if(in_array($key,array('sender', 'receiver')) && is_array($value)) {
+                        $this->{$key} = new Person($value);
+                    } else {
+                        $this->{$key} = $value;
+                    }
                 }
             }
         }
