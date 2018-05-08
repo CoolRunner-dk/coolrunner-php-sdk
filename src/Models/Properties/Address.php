@@ -39,7 +39,7 @@ class Address
      * @return string
      */
     public function toString($format = ':street, :country-:zip :city') {
-        $format = str_replace(array(':street', ':zip', ':city', ':country'), array($this->street, $this->zipcode, $this->city, $this->country_code), $format);
+        $format = str_replace(array(':street', ':zip', ':city', ':country'), array($this->street, $this->zip_code, $this->city, $this->country_code), $format);
 
         return $format;
     }
