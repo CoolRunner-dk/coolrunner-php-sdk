@@ -11,7 +11,7 @@ namespace CoolRunnerSDK\Models\Properties;
  * Class Address
  *
  * @property string $street
- * @property string $zipcode
+ * @property string $zip_code
  * @property string $city
  * @property string $country_code;
  *
