@@ -22,7 +22,7 @@ class Address
     /** @var string */
     protected
         $street,
-        $zipcode,
+        $zip_code,
         $city,
         $country_code;
 
