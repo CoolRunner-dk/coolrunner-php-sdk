@@ -13,13 +13,13 @@ use CoolRunnerSDK\Models\Properties\Property;
 /**
  * Class ShipmentPrice
  *
- * @property float|double $price_incl_tax
- * @property float|double $price_excl_tax
+ * @property float|double $incl_tax
+ * @property float|double $excl_tax
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
 class ShipmentPrice
     extends Property {
     /** @var double|float */
-    protected $price_incl_tax, $price_excl_tax;
+    protected $incl_tax, $excl_tax;
 }
