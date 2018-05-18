@@ -13,15 +13,14 @@ use CoolRunnerSDK\Models\CoolObject;
  * Class ShipmentTrackingEntry
  *
  * @property string $timestamp
- * @property string $title
+ * @property string $details
  * @property string $event
- * @property string $location
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
 class ShipmentTrackingEntry
     extends CoolObject {
-    protected $timestamp, $title, $event, $location;
+    protected $timestamp, $details, $event;
 
 
     public function __construct($data) {

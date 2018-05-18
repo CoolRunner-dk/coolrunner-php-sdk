@@ -29,7 +29,7 @@ class ShipmentTracking
     public function __construct($data) {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
-                if ($key !== 'tracking') {
+                if ($key !== 'event') {
                     $this->{$key} = $value;
                 } else {
                     $this->{$key} = ShipmentTrackingEntry::getList($value);
