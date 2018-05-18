@@ -14,7 +14,7 @@ use CoolRunnerSDK\Models\CoolObject;
  *
  * @property string                  $package_number
  * @property string                  $carrier
- * @property ShipmentTrackingEntry[] $tracking
+ * @property ShipmentTrackingEntry[] $events
  *
  * @package CoolRunnerSDK\Models\Shipments
  */
@@ -24,7 +24,7 @@ class ShipmentTracking
     protected $package_number, $carrier;
 
     /** @var ShipmentTrackingEntry[] */
-    protected $tracking = array();
+    protected $events = array();
 
     public function __construct($data) {
         foreach ($data as $key => $value) {
