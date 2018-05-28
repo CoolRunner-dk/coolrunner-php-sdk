@@ -46,10 +46,6 @@ class ProductTypeList
         return !empty($prods) ? new ProductList($prods) : false;
     }
 
-    public function findProduct() {
-
-    }
-
     public function offsetGet($offset) {
         return parent::offsetGet(strtoupper($offset));
     }
