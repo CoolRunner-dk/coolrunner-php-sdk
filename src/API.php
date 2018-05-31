@@ -76,16 +76,20 @@ class API {
      *
      * @return API
      */
-    public static function load($email, $token, $developer_id = null) {
+    public static function &load($email, $token, $developer_id = null) {
         if (!is_null($developer_id) && (is_int($developer_id) || is_string($developer_id))) {
             self::$_default_headers['X-Developer-Id'] .= " | $developer_id";
         }
 
-        if (self::$_instance === false) {
+        if (InstanceStore::hasInstance(get_class()) === false) {
             $apitoken = base64_encode("$email:$token");
-            self::$_instance = new self($apitoken);
+            $new = new self($apitoken);
+            $instance = InstanceStore::setInstance(get_class(), $new);
+        } else {
+            $instance = InstanceStore::getInstance(get_class());
         }
-        return self::$_instance;
+
+        return $instance;
     }
 
     /**
@@ -93,8 +97,13 @@ class API {
      *
      * @return self|APILight|false CoolRunnerAPI if instance has been loaded, or false on failure
      */
-    public static function getInstance() {
-        return self::$_instance !== false ? self::$_instance : APILight::getInstance();
+    public static function &getInstance() {
+        if (InstanceStore::hasInstance(get_class())) {
+            return InstanceStore::getInstance(get_class());
+        } else {
+            $false = false;
+            return $false;
+        }
     }
 
     /**
@@ -143,7 +152,7 @@ class API {
             CURLOPT_SSL_VERIFYPEER => 0,
         ];
 
-        $data = array_filter($data, function($e) {
+        $data = array_filter($data, function ($e) {
             return $e !== '';
         });
 
