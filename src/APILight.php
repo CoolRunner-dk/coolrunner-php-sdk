@@ -79,13 +79,17 @@ class APILight {
             self::$_default_headers['X-Developer-Id'] .= " | $developer_id";
         }
 
-        if (self::$_instance === false) {
+        if (InstanceStore::hasInstance(get_class()) === false) {
             $apitoken = base64_encode("$email:$token");
             self::$_raw = $mode === self::OUTPUT_MODE_RAW;
             self::$_assoc = $mode === self::OUTPUT_MODE_ASSOC;
-            self::$_instance = new self($apitoken);
+            $new = new self($apitoken);
+            $instance = InstanceStore::setInstance(get_class(), $new);
+        } else {
+            $instance = InstanceStore::getInstance(get_class());
         }
-        return self::$_instance;
+
+        return $instance;
     }
 
     /**
@@ -93,8 +97,13 @@ class APILight {
      *
      * @return self|false CoolRunnerAPI if instance has been loaded, or false on failure
      */
-    public static function getInstance() {
-        return self::$_instance;
+    public static function &getInstance() {
+        if (InstanceStore::hasInstance(get_class())) {
+            return InstanceStore::getInstance(get_class());
+        } else {
+            $false = false;
+            return $false;
+        }
     }
 
     /**
