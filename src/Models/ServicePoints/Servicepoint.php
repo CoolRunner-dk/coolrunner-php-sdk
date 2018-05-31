@@ -95,6 +95,14 @@ class Servicepoint
         $this->opening_hours = new OpeningHours($this->opening_hours);
     }
 
+    public function __toString() {
+        return sprintf('%s | %s', $this->name, $this->address->toString());
+    }
+
+    public function toString() {
+        return $this->__toString();
+    }
+
     public function __get($name) {
         return $this->{$name};
     }
