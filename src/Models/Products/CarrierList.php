@@ -47,4 +47,15 @@ class CarrierList
     public function offsetGet($offset) {
         return parent::offsetGet(strtoupper($offset));
     }
+
+    public function getPossibleProducts($shipment) {
+        /** @var ProductTypeList $carrier */
+        $results = array();
+        foreach ($this as $carrier) {
+            $prods = $carrier->getPossibleProducts($shipment);
+            $results = array_merge($prods ? $prods->toArray() : array(),$results);
+        }
+
+        return new ProductList($results);
+    }
 }
