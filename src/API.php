@@ -110,7 +110,7 @@ class API {
      * @return string
      */
     public static function getBaseUrl() {
-        return static::$_base_url;
+        return self::$_base_url;
     }
 
     /**
