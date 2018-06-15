@@ -68,7 +68,7 @@ class OpeningHours
             'Sunday'    => $this->sunday
         );
 
-        $ret = [];
+        $ret = array();
         foreach ($days as $day => $values) {
             $str = str_replace(
                 array(

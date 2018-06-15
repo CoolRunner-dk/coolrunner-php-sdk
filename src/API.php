@@ -213,7 +213,7 @@ class API {
 
         $def_headers['Authorization'] = 'Basic ' . self::$token;
 
-        $headers = [];
+        $headers = array();
         foreach ($def_headers as $key => $header) {
             $headers[] = "$key: $header";
         }
