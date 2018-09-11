@@ -43,7 +43,7 @@ class PCN {
      * @see https://docs.coolrunner.dk/pcn/#api-PDF-Get_PDF
      */
     public function getPdf($unique_id) {
-        $this->_last_response = $this->_api->get("pdf/$unique_id");
+        $this->_last_response = $this->_api->get(self::$_base_url . "pdf/$unique_id");
 
         if ($this->_last_response->isOk()) {
             return $this->_last_response->jsonDecode(true);
