@@ -46,7 +46,7 @@ class PCN {
         $this->_last_response = $this->_api->get(self::$_base_url . "pdf/$unique_id");
 
         if ($this->_last_response->isOk()) {
-            return $this->_last_response->jsonDecode(true);
+            return $this->_last_response->getData();
         }
 
         return false;
