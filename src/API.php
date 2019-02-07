@@ -152,10 +152,6 @@ class API {
             CURLOPT_SSL_VERIFYPEER => 0,
         ];
 
-        $data = array_filter($data, function ($e) {
-            return $e !== '';
-        });
-
         switch (strtoupper($method)) {
             case 'GET':
                 $url .= !empty($data) ? '?' . http_build_query($data) : '';
