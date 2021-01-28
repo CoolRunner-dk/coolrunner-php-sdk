@@ -25,6 +25,12 @@ class PCN {
         $this->_api = $api_instance;
     }
 
+
+    public function __destruct()
+    {
+        self::$_instance = false;
+    }
+
     public static function load($email, $token, $developer_id = null) {
         if (self::$_instance === false) {
             self::$_instance = new self(API::load($email, $token, $developer_id));
