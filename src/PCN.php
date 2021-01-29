@@ -26,7 +26,7 @@ class PCN {
     }
 
 
-    public function __destruct()
+    public static function __destruct()
     {
         self::$_instance = false;
     }
